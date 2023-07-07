@@ -36,7 +36,7 @@ for (let i = 0; i < args.length; i += 2) {
   }else if (key === 'h') {
     help = `欢迎使用本脚本
 项目地址github.com/XiaoTong6666/nodejs-concurrent_request
-欢迎大家来Pr（Pull requests）
+欢迎大家来Pr（Pull requests)
 参数说明：
 -a 每个线程总共请求数（默认114514（恼
 -m 进程数（默认为你CPU核心数量)
