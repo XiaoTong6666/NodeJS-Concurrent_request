@@ -14,10 +14,37 @@ const maxHeapSize = Math.min(freeMemory, defaultHeapLimit);
 v8.setFlagsFromString(`--max-old-space-size=${maxHeapSize}`);
 let requestCount = 0;
 
-const numRequests = 20000000; //每个线程总共请求数
-const delay = 10;  //间隔多少ms请求一次
-const concurrentRequests = 100; //并发数 
-const numCPUs = 10; //进程数
+let numRequests = 20000000; //每个线程总共请求数
+let delay = 200;  //间隔多少ms请求一次
+let concurrent = 10; //并发数 
+let processes = 10; //进程数
+
+const args = process.argv.slice(2);
+
+for (let i = 0; i < args.length; i += 2) {
+  const key = args[i].replace(/^-+/, ''); 
+  const value = args[i + 1];
+
+  if (key === 'a') {
+    numRequests = parseInt(value, 10); 
+  } else if (key === 't') {
+    delay = parseInt(value, 10); 
+  }else if (key === 'c') {
+   concurrent  = parseInt(value, 10); 
+  }else if (key === 'm') {
+    processes = parseInt(value, 10); 
+  }else if (key === 'h') {
+    help = `欢迎使用本脚本
+项目地址github.com/XiaoTong6666/nodejs-concurrent_request
+欢迎大家来Pr（Pull requests）
+参数说明：
+-a 每个线程总共请求数
+-m 进程数
+-c 并发数
+-t 间隔多少毫秒请求一次（一次的数量由进程数决定）`; 
+	console.log(help);process.exit();
+  }
+}
 
 let totalBytesReceived = 0; 
 
@@ -133,7 +160,9 @@ totalRequests = successCount + ErrReq;
 }
 
 if (cluster.isMaster) {
-  console.log(`主进程 ${process.pid}来啦
+  console.log(`欢迎使用本脚本，项目地址github.com/XiaoTong6666/nodejs-concurrent_request
+使用\x1b[31m-h\x1b[0m参数查看参数使用帮助
+主进程 ${process.pid}来啦
 开始攻击（打`);
 
   //const numCPUs = os.cpus().length;
