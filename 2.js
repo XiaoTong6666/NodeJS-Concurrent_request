@@ -14,10 +14,10 @@ const maxHeapSize = Math.min(freeMemory, defaultHeapLimit);
 v8.setFlagsFromString(`--max-old-space-size=${maxHeapSize}`);
 let requestCount = 0;
 
-let numRequests = 20000000; //每个线程总共请求数
+let numRequests = 114514; //每个线程总共请求数
 let delay = 200;  //间隔多少ms请求一次
-let concurrent = 10; //并发数 
-let processes = 10; //进程数
+let concurrent = 50; //并发数 
+let processes = os.cpus().length; //进程数
 
 const args = process.argv.slice(2);
 
@@ -38,10 +38,10 @@ for (let i = 0; i < args.length; i += 2) {
 项目地址github.com/XiaoTong6666/nodejs-concurrent_request
 欢迎大家来Pr（Pull requests）
 参数说明：
--a 每个线程总共请求数
--m 进程数
--c 并发数
--t 间隔多少毫秒请求一次（一次的数量由进程数决定）`; 
+-a 每个线程总共请求数（默认114514（恼
+-m 进程数（默认为你CPU核心数量)
+-c 并发数（默认事50)
+-t 间隔多少毫秒请求一次（一次的数量由进程数决定（默认200ms）`; 
 	console.log(help);process.exit();
   }
 }
