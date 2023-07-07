@@ -4,6 +4,9 @@ function startApp() {
 	const params = {};
 	let currentParam = null;
 	for (let i = 0; i < argv.length; i++) {
+		if (argv[i] === '-h') {
+			process.exit(); 
+		}
 		if (argv[i].startsWith('-')) {
 			const paramName = argv[i].substring(1);
 			params[paramName] = argv[i + 1];
