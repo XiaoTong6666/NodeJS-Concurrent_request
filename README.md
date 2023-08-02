@@ -1,4 +1,4 @@
-# nodejs-concurrent_request
+# 用NodeJS写的并发请求脚本，releases有打包版，可独立运行
 可以刷一个小网站的流量，可以导致该站打不开错误502  
 欢迎大家来Pr（Pull requests）  
 参数说明：  
